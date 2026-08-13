@@ -10,8 +10,8 @@ The code computes the graph polynomials, the two graph-multinomial coefficient f
 
 | Stopping rule | With replacement | Without replacement |
 |---|---|---|
-| Fixed number of draws | graphical multinomial $`\operatorname{mult}_G`$ | graphical hypergeometric $`\operatorname{hg}_G`$ |
-| Fixed number of failures | graphical negative multinomial $`\operatorname{nm}_G`$ | graphical negative hypergeometric $`\operatorname{nhg}_G`$ |
+| Fixed number of draws | graphical multinomial $`\mathrm{mult}_G`$ | graphical hypergeometric $`\mathrm{hg}_G`$ |
+| Fixed number of failures | graphical negative multinomial $`\mathrm{nm}_G`$ | graphical negative hypergeometric $`\mathrm{nhg}_G`$ |
 
 > [!IMPORTANT]
 > This repository is an educational and verification-oriented implementation for **small decomposable graphs**. It uses exhaustive independent-set enumeration and bounded coefficient grids. It is not a large-scale inference package and does not currently implement fitting, graph learning, Bayesian posteriors, or production samplers.
@@ -22,11 +22,11 @@ The implementation follows arXiv:2608.11366v1:
 
 - graph polynomials: Definition 2.1;
 - graph-multinomial coefficients: Definition 2.2;
-- $`\operatorname{mult}_G`$ and $`\operatorname{nm}_G`$: Definition 3.1;
-- $`\operatorname{hg}_G`$: Definition 4.1;
-- $`\operatorname{nhg}_G`$: Definition 4.5.
+- $`\mathrm{mult}_G`$ and $`\mathrm{nm}_G`$: Definition 3.1;
+- $`\mathrm{hg}_G`$: Definition 4.1;
+- $`\mathrm{nhg}_G`$: Definition 4.5.
 
-It also enforces the paper's decomposability restriction for the four general PMFs. The exceptional graphical Bernoulli case $`\operatorname{mult}_G(1,\mathbf y)`$ is mathematically valid for arbitrary finite graphs (Remark 3.2), but the high-level PMF API deliberately keeps one uniform decomposable-graph contract in this initial release.
+It also enforces the paper's decomposability restriction for the four general PMFs. The exceptional graphical Bernoulli case $`\mathrm{mult}_G(1,\mathbf y)`$ is mathematically valid for arbitrary finite graphs (Remark 3.2), but the high-level PMF API deliberately keeps one uniform decomposable-graph contract in this initial release.
 
 ## Mathematics
 
@@ -97,7 +97,7 @@ For a decomposable graph, Definition 3.1 gives
 \mathbf y^{\mathbf n}\,
 \delta_G(\mathbf y)^{-r},
 \qquad
-\mathbf N\sim\operatorname{mult}_G(r,\mathbf y).
+\mathbf N\sim\mathrm{mult}_G(r,\mathbf y).
 ```
 
 For
@@ -116,7 +116,7 @@ the graphical negative multinomial is
 \mathbf x^{\mathbf n}\,
 \Delta_G(\mathbf x)^r,
 \qquad
-\mathbf N\sim\operatorname{nm}_G(r,\mathbf x).
+\mathbf N\sim\mathrm{nm}_G(r,\mathbf x).
 ```
 
 The implementation checks the full induced-subgraph condition defining $`M_G`$.
@@ -133,13 +133,13 @@ Definition 4.1 gives the graphical hypergeometric PMF
 \binom{M}{\mathbf K}_G
 },
 \qquad
-\mathbf N\sim\operatorname{hg}_G(M,\mathbf K,r).
+\mathbf N\sim\mathrm{hg}_G(M,\mathbf K,r).
 ```
 
 Its exact support is
 
 ```math
-S^{\operatorname{hg}_G}_{M,\mathbf K,r}
+S^{\mathrm{hg}_G}_{M,\mathbf K,r}
 =
 \left\{\mathbf n\in\mathbb N^V:
  n_v\le K_v\ \forall v,
@@ -159,13 +159,13 @@ Definition 4.5 gives the graphical negative hypergeometric PMF
 \left[\begin{matrix}M+|\mathbf K|\\\mathbf K\end{matrix}\right]_G
 },
 \qquad
-\mathbf N\sim\operatorname{nhg}_G(M,\mathbf K,r),
+\mathbf N\sim\mathrm{nhg}_G(M,\mathbf K,r),
 ```
 
 with
 
 ```math
-S^{\operatorname{nhg}_G}_{M,\mathbf K,r}
+S^{\mathrm{nhg}_G}_{M,\mathbf K,r}
 =\{\mathbf n\in\mathbb N^V:0\le n_v\le K_v\ \forall v\}.
 ```
 
@@ -175,17 +175,17 @@ The without-replacement models arise by conditioning independent with-replacemen
 
 ```math
 \mathbf N_1\mid(\mathbf N_1+\mathbf N_2=\mathbf K)
-\sim\operatorname{hg}_G(M,\mathbf K,r),
+\sim\mathrm{hg}_G(M,\mathbf K,r),
 ```
 
-when $`\mathbf N_1\sim\operatorname{mult}_G(r,\mathbf y)`$ and $`\mathbf N_2\sim\operatorname{mult}_G(M-r,\mathbf y)`$; and
+when $`\mathbf N_1\sim\mathrm{mult}_G(r,\mathbf y)`$ and $`\mathbf N_2\sim\mathrm{mult}_G(M-r,\mathbf y)`$; and
 
 ```math
 \mathbf N_1\mid(\mathbf N_1+\mathbf N_2=\mathbf K)
-\sim\operatorname{nhg}_G(M,\mathbf K,r),
+\sim\mathrm{nhg}_G(M,\mathbf K,r),
 ```
 
-when $`\mathbf N_1\sim\operatorname{nm}_G(r,\mathbf x)`$ and $`\mathbf N_2\sim\operatorname{nm}_G(M-r+1,\mathbf x)`$ (Propositions 4.2 and 4.6).
+when $`\mathbf N_1\sim\mathrm{nm}_G(r,\mathbf x)`$ and $`\mathbf N_2\sim\mathrm{nm}_G(M-r+1,\mathbf x)`$ (Propositions 4.2 and 4.6).
 
 ### Classical limits
 
@@ -250,7 +250,7 @@ def main() raises:
     print(probability)
 ```
 
-See [`examples/basic.mojo`](examples/basic.mojo) for a runnable example of $`\operatorname{mult}_G`$ and $`\operatorname{hg}_G`$.
+See [`examples/basic.mojo`](examples/basic.mojo) for a runnable example of $`\mathrm{mult}_G`$ and $`\mathrm{hg}_G`$.
 
 ## Practical use cases
 
@@ -258,16 +258,16 @@ The paper's core modeling pattern is: vertices represent candidate events or obj
 
 | Domain | Graph construction | Useful question | Candidate family |
 |---|---|---|---|
-| **Rydberg-atom blockade experiments** | atoms are vertices; blockade interactions are edges | Distribution of blockade-consistent excitation patterns | $`\operatorname{mult}_G(1,\mathbf y)`$; $`\operatorname{hg}_G`$ for subsets of a fixed admissible collection |
-| **Wireless/CSMA scheduling** | links are vertices; interference creates edges | Link activity counts across approximately independent stationary schedule snapshots | $`\operatorname{mult}_G`$; $`\operatorname{hg}_G`$ for a subset of fixed schedule history |
-| **Cancer genomics** | genes/pathways are vertices; hypothesized mutual exclusions are edges | Alteration prevalence under an idealized exclusion null, or a finite-cohort subset with fixed totals | $`\operatorname{mult}_G`$ / $`\operatorname{hg}_G`$ |
-| **Spatial hard-core systems** | locations/objects are vertices; overlap or minimum-distance conflicts are edges | Occupancy counts across repeated admissible spatial configurations | $`\operatorname{mult}_G`$; $`\operatorname{hg}_G`$ for conditioned finite collections |
-| **Adsorption and packing** | candidate placements are vertices; geometric conflicts are edges | Counts accumulated before a rejection/jamming event under an idealized stopped mechanism | $`\operatorname{nm}_G`$ / $`\operatorname{nhg}_G`$ |
-| **Loss networks and resource sharing** | calls/routes/jobs are vertices; shared-capacity conflicts are edges | Occupancy counts over independent stationary snapshots | $`\operatorname{mult}_G`$ / $`\operatorname{hg}_G`$ |
-| **Abstract polymer models** | polymers are vertices; incompatibility creates edges | Weighted admissible configurations and repeated polymer occupancy counts | $`\operatorname{mult}_G(1,\mathbf y)`$ and $`\operatorname{mult}_G`$ |
-| **Conflict-constrained portfolios** *(extension)* | candidate positions are vertices; prohibited co-holdings are edges | Exact probability calculations for small rule-constrained allocation snapshots | $`\operatorname{mult}_G`$ / $`\operatorname{hg}_G`$ |
-| **Maintenance or deployment windows** *(extension)* | tasks are vertices; unsafe concurrent tasks are edges | Counts across feasible windows or subsets of a fixed rollout plan | $`\operatorname{mult}_G`$ / $`\operatorname{hg}_G`$ |
-| **Experiment design with incompatible treatments** *(extension)* | treatments are vertices; co-assignment exclusions are edges | Conditional allocation probabilities under fixed aggregate exposure | $`\operatorname{hg}_G`$ |
+| **Rydberg-atom blockade experiments** | atoms are vertices; blockade interactions are edges | Distribution of blockade-consistent excitation patterns | $`\mathrm{mult}_G(1,\mathbf y)`$; $`\mathrm{hg}_G`$ for subsets of a fixed admissible collection |
+| **Wireless/CSMA scheduling** | links are vertices; interference creates edges | Link activity counts across approximately independent stationary schedule snapshots | $`\mathrm{mult}_G`$; $`\mathrm{hg}_G`$ for a subset of fixed schedule history |
+| **Cancer genomics** | genes/pathways are vertices; hypothesized mutual exclusions are edges | Alteration prevalence under an idealized exclusion null, or a finite-cohort subset with fixed totals | $`\mathrm{mult}_G`$ / $`\mathrm{hg}_G`$ |
+| **Spatial hard-core systems** | locations/objects are vertices; overlap or minimum-distance conflicts are edges | Occupancy counts across repeated admissible spatial configurations | $`\mathrm{mult}_G`$; $`\mathrm{hg}_G`$ for conditioned finite collections |
+| **Adsorption and packing** | candidate placements are vertices; geometric conflicts are edges | Counts accumulated before a rejection/jamming event under an idealized stopped mechanism | $`\mathrm{nm}_G`$ / $`\mathrm{nhg}_G`$ |
+| **Loss networks and resource sharing** | calls/routes/jobs are vertices; shared-capacity conflicts are edges | Occupancy counts over independent stationary snapshots | $`\mathrm{mult}_G`$ / $`\mathrm{hg}_G`$ |
+| **Abstract polymer models** | polymers are vertices; incompatibility creates edges | Weighted admissible configurations and repeated polymer occupancy counts | $`\mathrm{mult}_G(1,\mathbf y)`$ and $`\mathrm{mult}_G`$ |
+| **Conflict-constrained portfolios** *(extension)* | candidate positions are vertices; prohibited co-holdings are edges | Exact probability calculations for small rule-constrained allocation snapshots | $`\mathrm{mult}_G`$ / $`\mathrm{hg}_G`$ |
+| **Maintenance or deployment windows** *(extension)* | tasks are vertices; unsafe concurrent tasks are edges | Counts across feasible windows or subsets of a fixed rollout plan | $`\mathrm{mult}_G`$ / $`\mathrm{hg}_G`$ |
+| **Experiment design with incompatible treatments** *(extension)* | treatments are vertices; co-assignment exclusions are edges | Conditional allocation probabilities under fixed aggregate exposure | $`\mathrm{hg}_G`$ |
 
 The first seven rows are discussed in Sections 7–8 of the paper. The last three are plausible extensions of the same independent-set mechanism, not claims validated by the paper.
 
@@ -275,8 +275,8 @@ The first seven rows are discussed in Sections 7–8 of the paper. The last thre
 
 - The paper treats graph-constrained support as an **idealization**. Out-of-support observations can indicate noise, imperfect exclusion, omitted interactions, or a misspecified graph.
 - Cancer mutual exclusivity is often a tendency rather than a hard law; use the model as a conditional law or idealized null where appropriate.
-- Consecutive CSMA schedules are generally dependent. The exact $`\operatorname{mult}_G`$ interpretation requires independent stationary samples; widely spaced observations may only approximate it.
-- Negative-model sampling requires the specific Cartier–Foata admissibility and transition mechanism from the paper. A generic “count until any failure” process does not automatically have an $`\operatorname{nm}_G`$ or $`\operatorname{nhg}_G`$ law.
+- Consecutive CSMA schedules are generally dependent. The exact $`\mathrm{mult}_G`$ interpretation requires independent stationary samples; widely spaced observations may only approximate it.
+- Negative-model sampling requires the specific Cartier–Foata admissibility and transition mechanism from the paper. A generic “count until any failure” process does not automatically have an $`\mathrm{nm}_G`$ or $`\mathrm{nhg}_G`$ law.
 - The general four-family construction requires a decomposable graph. Do not silently apply the coefficient PMFs to a non-chordal graph and infer the global Markov property.
 
 ## Implementation scope and complexity
