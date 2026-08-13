@@ -1,0 +1,18 @@
+[workspace]
+name = "graphical-count-models"
+version = "0.2.0"
+description = "Exact small-graph Mojo reference implementation for arXiv:2608.11366"
+authors = ["Yabloko Labs"]
+channels = ["https://conda.modular.com/max/", "conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+format = "mojo format src/graphical_counts/__init__.mojo tests/test_graphical_counts.mojo examples/basic.mojo"
+format-check = "python scripts/check_format.py"
+build = "mojo precompile src/graphical_counts -o graphical_counts.mojoc --Werror"
+test = "mojo run --Werror -I src tests/test_graphical_counts.mojo"
+example = "mojo run --Werror -I src examples/basic.mojo"
+check = { depends-on = ["format-check", "build", "test", "example"] }
+
+[dependencies]
+mojo = "1.0.*"
